@@ -1,0 +1,86 @@
+<template>
+    <form @submit.prevent="onSubmit" class="add-form">
+        <div class="form-control">
+            <label for="">Task</label>
+            <input v-model="text" type="text" name="text" placeholder="Add Task">
+        </div>
+        <div class="form-control">
+            <label for="">Day & Time</label>
+            <input v-model="day" type="text" name="day" placeholder="Add day and time">
+        </div>
+        <div class="form-control form-control-check">
+            <label for="">Set Reminder</label>
+            <input v-model="reminder" type="checkbox" name="reminder" placeholder="Add Task">
+        </div>
+        <input type="submit" value="Save Task" class="btn btn-block">
+    </form>
+</template>
+
+<script>
+export default {
+    name: 'AddTask',
+    props: {
+        task: {
+            type: Object
+        }
+    },
+    data(){
+        return {
+            text: '',
+            day: '',
+            reminder: false,
+        };
+    },
+    methods: {
+        onSubmit(){
+            const task = {
+                text: this.text,
+                day: this.day,
+                reminder: this.reminder,
+            }
+
+            this.text = ''
+            this.day = ''
+            this.reminder = false
+            
+            console.log('addTask', task);
+            this.$emit('add-task', task);
+        }
+    }
+}
+</script>
+
+<style scoped>
+.add-form{
+    margin-bottom: 40px;
+}
+.form-control{
+    margin: 20px 0;
+}
+
+.form-control label{
+    display: block;
+}
+
+.form-control input{
+    width: 100%;
+    height: 40px;
+    margin: 5px;
+    padding: 3px 7px;
+    font-size: 18px;
+}
+.form-control-check{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-control-check label{
+    flex: 1;
+}
+
+.form-control-check input{
+    flex: 2;
+    height: 20px;
+}
+</style>>
